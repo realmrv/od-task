@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { User } from './src/user/entities/user.entity';
 import { CreateUsers1662820361908 } from './migrations/1662820361908-CreateUsers';
+import { AddRefreshTokenToUsers1663162872160 } from './migrations/1663162872160-AddRefreshTokenToUsers';
 
 config();
 
@@ -16,5 +17,5 @@ export default new DataSource({
   password: configService.get('POSTGRES_PASSWORD'),
   database: configService.get('POSTGRES_DB'),
   entities: [User],
-  migrations: [CreateUsers1662820361908],
+  migrations: [CreateUsers1662820361908, AddRefreshTokenToUsers1663162872160],
 });

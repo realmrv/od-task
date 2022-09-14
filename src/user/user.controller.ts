@@ -18,18 +18,16 @@ export class UserController {
 
   @Get()
   async find(@Request() req) {
-    const { password, uid, ...result } = await this.userService.findOne(
-      req.user.uid,
-    );
+    const { password, uid, refreshToken, ...result } =
+      await this.userService.findOne(req.user.uid);
     return result;
   }
 
   @Put()
   async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
     await this.userService.update(req.user.uid, updateUserDto);
-    const { password, uid, ...result } = await this.userService.findOne(
-      req.user.uid,
-    );
+    const { password, uid, refreshToken, ...result } =
+      await this.userService.findOne(req.user.uid);
     return result;
   }
 

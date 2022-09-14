@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class UserService {
@@ -13,10 +13,10 @@ export class UserService {
     private usersRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     return this.usersRepository.save({
       ...createUserDto,
-      password: bcrypt.hashSync(createUserDto.password, 10),
+      password: await this.hashPassword(createUserDto.password),
     });
   }
 
@@ -32,11 +32,11 @@ export class UserService {
     return this.usersRepository.findOneBy({ email });
   }
 
-  update(uid: string, updateUserDto: UpdateUserDto) {
+  async update(uid: string, updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       updateUserDto = {
         ...updateUserDto,
-        password: bcrypt.hashSync(updateUserDto.password, 10),
+        password: await this.hashPassword(updateUserDto.password),
       };
     }
 
@@ -45,5 +45,9 @@ export class UserService {
 
   remove(uid: string) {
     return this.usersRepository.delete({ uid });
+  }
+
+  protected async hashPassword(password: string) {
+    return argon2.hash(password);
   }
 }

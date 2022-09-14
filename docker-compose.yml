@@ -33,5 +33,4 @@ services:
       - postgres:/var/lib/postgresql/data
 volumes:
   redis:
-    driver: local
   postgres:
