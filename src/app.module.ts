@@ -3,7 +3,19 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as redisStore from 'cache-manager-redis-store';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { DbValidatorsModule } from '@youba/nestjs-dbvalidator';
+
+const dbOptions = {
+  type: 'postgres',
+  host: process.env.POSTGRES_HOST,
+  port: +process.env.POSTGRES_PORT,
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
+};
 
 @Module({
   imports: [
@@ -15,15 +27,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: process.env.REDIS_PORT,
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: +process.env.POSTGRES_PORT,
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
       entities: [],
-      synchronize: true,
-    }),
+      autoLoadEntities: true,
+      ...dbOptions,
+    } as TypeOrmModuleOptions),
+    DbValidatorsModule.register(dbOptions),
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
