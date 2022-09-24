@@ -8,19 +8,11 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DbValidatorsModule } from '@youba/nestjs-dbvalidator';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-
-const dbOptions = {
-  type: 'postgres',
-  host: process.env.POSTGRES_HOST,
-  port: +process.env.POSTGRES_PORT,
-  username: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
-};
+import { dbOptions } from './db-options';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
@@ -28,7 +20,6 @@ const dbOptions = {
       port: process.env.REDIS_PORT,
     }),
     TypeOrmModule.forRoot({
-      entities: [],
       autoLoadEntities: true,
       ...dbOptions,
     } as TypeOrmModuleOptions),

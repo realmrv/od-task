@@ -20,6 +20,18 @@
             "cwd": "${workspaceRoot}",
             "console": "integratedTerminal",
             "protocol": "inspector"
-        }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach Nest Framework",
+            "remoteRoot": "/usr/src/app",
+            "localRoot": "${workspaceFolder}",
+            "protocol": "inspector",
+            "port": 9229,
+            "restart": true,
+            "address": "0.0.0.0",
+            "skipFiles": ["<node_internals>/**"]
+          }
     ]
 }
