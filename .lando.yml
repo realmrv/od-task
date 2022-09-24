@@ -1,0 +1,41 @@
+name: od-task
+
+excludes:
+  - node_modules
+
+services:
+  # The Node.js service to run the Nest application.
+  api:
+    type: node:16
+    port: 3000
+    globals:
+      # Globally install the Nest CLI tool.
+      '@nestjs/cli': latest
+    command: npm run start:dev
+    build:
+      - echo && tput setaf 2 && echo "Preparing Nest Project..." && tput sgr 0;
+      - npm ci;
+  redis:
+    type: redis:6
+    portforward: 6379
+  postgres:
+    type: postgres:14
+    portforward: 5432
+    creds:
+      database: nest
+      user: postgres
+      password: NO PASSWORD
+
+env_file:
+  - .env
+
+proxy:
+  api:
+    - od-task.lndo.site
+
+tooling:
+  # Expose npm and nest commands to the local machine.
+  npm:
+    service: api
+  nest:
+    service: api
