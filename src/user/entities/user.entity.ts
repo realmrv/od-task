@@ -1,5 +1,12 @@
 import { Exclude } from 'class-transformer';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Tag } from '../../tag/entities/tag.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -18,4 +25,20 @@ export class User {
   @Column({ nullable: true })
   @Exclude()
   refreshToken?: string;
+
+  @ManyToMany(() => Tag, (tag) => tag.users, {
+    cascade: true,
+  })
+  @JoinTable({
+    name: 'users_tags', // table name for the junction table of this relation
+    joinColumn: {
+      name: 'userUid',
+      referencedColumnName: 'uid',
+    },
+    inverseJoinColumn: {
+      name: 'tagId',
+      referencedColumnName: 'id',
+    },
+  })
+  tags: Tag[];
 }

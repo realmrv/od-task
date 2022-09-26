@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { DbValidatorsModule } from '@youba/nestjs-dbvalidator';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { dbOptions } from './db-options';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { dbOptions } from './db-options';
     DbValidatorsModule.register(dbOptions),
     UserModule,
     AuthModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [
