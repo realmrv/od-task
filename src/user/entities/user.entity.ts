@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
@@ -30,7 +31,7 @@ export class User {
     cascade: true,
   })
   @JoinTable({
-    name: 'users_tags', // table name for the junction table of this relation
+    name: 'users_tags',
     joinColumn: {
       name: 'userUid',
       referencedColumnName: 'uid',
@@ -41,4 +42,7 @@ export class User {
     },
   })
   tags: Tag[];
+
+  @OneToMany(() => Tag, (tag) => tag.creator)
+  ownsTags: Tag[];
 }

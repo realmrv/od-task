@@ -13,7 +13,7 @@ export class Tag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.ownsTags)
   @JoinColumn({ name: 'creator' })
   creator: User;
 
