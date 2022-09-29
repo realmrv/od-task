@@ -13,6 +13,7 @@ import { LocalAuthGuard } from './auth/local-auth.guard';
 import { SinginDto } from './dto/signin.dto';
 import { RefreshTokenDto } from './user/dto/refresh-token.dto';
 import { UserService } from './user/user.service';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Controller()
 export class AppController {
@@ -34,6 +35,7 @@ export class AppController {
   }
 
   @Post('logout')
+  @UseGuards(JwtAuthGuard)
   async logout(@Request() req) {
     return this.authService.logout(req.user);
   }

@@ -32,7 +32,10 @@ export class AuthService {
   }
 
   async refreshToken(user: User, refreshToken: string): Promise<JwtSet> {
-    if (await this.compareWithHashedString(refreshToken, user.refreshToken)) {
+    if (
+      user.refreshToken &&
+      (await this.compareWithHashedString(refreshToken, user.refreshToken))
+    ) {
       await this.updateRefreshToken(null, user.uid);
       return this.getTokensSet(this.getJwtPayload(user));
     }
