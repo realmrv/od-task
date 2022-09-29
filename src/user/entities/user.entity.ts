@@ -27,9 +27,7 @@ export class User {
   @Exclude()
   refreshToken?: string;
 
-  @ManyToMany(() => Tag, (tag) => tag.users, {
-    cascade: true,
-  })
+  @ManyToMany(() => Tag, (tag) => tag.users)
   @JoinTable({
     name: 'users_tags',
     joinColumn: {

@@ -23,6 +23,8 @@ export class Tag {
   @Column({ default: 0 })
   sortOrder: number;
 
-  @ManyToMany(() => User, (user) => user.tags)
+  @ManyToMany(() => User, (user) => user.tags, {
+    cascade: true,
+  })
   users: User[];
 }

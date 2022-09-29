@@ -14,10 +14,10 @@ export class CreateUsersTags1664181480837 implements MigrationInterface {
       `CREATE INDEX "IDX_619db871b62b3bd23be01810df" ON "users_tags" ("tagId") `,
     );
     await queryRunner.query(
-      `ALTER TABLE "users_tags" ADD CONSTRAINT "FK_42eb3e1a78c30563fa6e82f2133" FOREIGN KEY ("userUid") REFERENCES "users"("uid") ON DELETE CASCADE ON UPDATE CASCADE`,
+      `ALTER TABLE "users_tags" ADD CONSTRAINT "FK_42eb3e1a78c30563fa6e82f2133" FOREIGN KEY ("userUid") REFERENCES "users"("uid") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "users_tags" ADD CONSTRAINT "FK_619db871b62b3bd23be01810dff" FOREIGN KEY ("tagId") REFERENCES "tags"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE "users_tags" ADD CONSTRAINT "FK_619db871b62b3bd23be01810dff" FOREIGN KEY ("tagId") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE`,
     );
   }
 
