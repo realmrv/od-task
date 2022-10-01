@@ -25,6 +25,7 @@ export class TagService {
     limit?: number,
     sortByOrder = false,
     sortByName = false,
+    relations: string[] = ['creator'],
   ): Promise<{ items: Tag[]; count: number }> {
     const [items, count] = await this.tagsRepository.findAndCount({
       select: {
@@ -35,7 +36,7 @@ export class TagService {
       },
       skip: offset,
       take: limit,
-      relations: ['creator'],
+      relations,
       order: {
         name: sortByName ? 'ASC' : undefined,
         sortOrder: sortByOrder ? 'ASC' : undefined,
@@ -45,7 +46,7 @@ export class TagService {
     return { items, count };
   }
 
-  findOne(id: number): Promise<Tag> {
+  findOne(id: number, relations: string[] = ['creator']): Promise<Tag> {
     return this.tagsRepository.findOne({
       select: {
         id: true,
@@ -54,7 +55,7 @@ export class TagService {
         creator: { uid: true, nickname: true },
       },
       where: { id },
-      relations: ['creator'],
+      relations,
     });
   }
 

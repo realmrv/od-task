@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/entities/user.entity';
 import { jwtConstants } from './constants';
 import { JwtPayload } from './types/jwt-payload.type';
-import { JwtSet } from './types/jwt-set.type';
+import { JwtSetDto } from './dto/jwt-set.dto';
 import * as argon2 from 'argon2';
 
 @Injectable()
@@ -23,15 +23,15 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User) {
+  login(user: User) {
     return this.getTokensSet(this.getJwtPayload(user));
   }
 
-  async logout(user: User) {
-    await this.updateRefreshToken(null, user.uid);
+  logout(user: User) {
+    this.updateRefreshToken(null, user.uid);
   }
 
-  async refreshToken(user: User, refreshToken: string): Promise<JwtSet> {
+  async refreshToken(user: User, refreshToken: string): Promise<JwtSetDto> {
     if (
       user.refreshToken &&
       (await this.compareWithHashedString(refreshToken, user.refreshToken))
@@ -42,7 +42,7 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-  protected async getTokensSet(payload: JwtPayload): Promise<JwtSet> {
+  protected async getTokensSet(payload: JwtPayload): Promise<JwtSetDto> {
     const refreshToken = this.jwtService.sign(payload, {
       expiresIn: jwtConstants.refreshExpiresIn,
       secret: jwtConstants.refreshSecret,

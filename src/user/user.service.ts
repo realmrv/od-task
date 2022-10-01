@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -25,8 +24,8 @@ export class UserService {
     return this.usersRepository.find();
   }
 
-  findOne(uid: string) {
-    return this.usersRepository.findOneBy({ uid });
+  findOne(uid: string, relations: string[] = []) {
+    return this.usersRepository.findOne({ where: { uid }, relations });
   }
 
   findByEmail(email: string) {
@@ -42,15 +41,15 @@ export class UserService {
     return user.ownsTags;
   }
 
-  async update(uid: string, updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      updateUserDto = {
-        ...updateUserDto,
-        password: await this.hashPassword(updateUserDto.password),
+  async update(uid: string, updatedFields: Partial<User>) {
+    if (updatedFields.password) {
+      updatedFields = {
+        ...updatedFields,
+        password: await this.hashPassword(updatedFields.password),
       };
     }
 
-    return this.usersRepository.update({ uid }, updateUserDto);
+    return this.usersRepository.update({ uid }, updatedFields);
   }
 
   remove(uid: string) {

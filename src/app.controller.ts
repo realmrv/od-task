@@ -2,19 +2,31 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Post,
   Request,
   UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBody,
+  ApiExcludeEndpoint,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
-import { SinginDto } from './dto/signin.dto';
+import { SignInDto } from './dto/sign-in.dto';
 import { RefreshTokenDto } from './user/dto/refresh-token.dto';
 import { UserService } from './user/user.service';
+import { JwtSetDto } from './auth/dto/jwt-set.dto';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { LoginDto } from './dto/login.dto';
 
+@ApiTags('App')
 @Controller()
 export class AppController {
   constructor(
@@ -25,30 +37,47 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
+  @ApiOperation({ summary: 'Login user by email and password' })
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized' })
+  login(@Request() req): Promise<JwtSetDto> {
     return this.authService.login(req.user);
   }
 
   @Post('signin')
-  async signin(@Body() singinDto: SinginDto) {
-    return this.authService.login(await this.userService.create(singinDto));
+  @ApiOperation({ summary: 'Register user' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  async signIn(@Body() signInDto: SignInDto): Promise<JwtSetDto> {
+    return this.authService.login(await this.userService.create(signInDto));
   }
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)
-  async logout(@Request() req) {
-    return this.authService.logout(req.user);
+  @ApiOperation({ summary: 'Logout user' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  logout(@Request() req) {
+    this.authService.logout(req.user);
   }
 
   @UseGuards(JwtRefreshGuard)
   @Post('refresh-token')
-  async refreshToken(@Request() req, @Body() refreshTokenDto: RefreshTokenDto) {
+  @ApiOperation({ summary: 'Refresh JWT by refresh token' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  refreshToken(
+    @Request() req,
+    @Body() refreshTokenDto: RefreshTokenDto,
+  ): Promise<JwtSetDto> {
     return this.authService.refreshToken(
       req.user,
       refreshTokenDto.refreshToken,
     );
   }
 
+  @ApiExcludeEndpoint()
   @Get()
   getHello(): string {
     return this.appService.getHello();
