@@ -4,6 +4,10 @@
 
 Nestjs framework test [task](https://github.com/kisilya/test-tasks/tree/main/nodeJS)
 
+## Specification
+
+You can read the specification [here](/specification.md)
+
 ## Requirements
 
 - Docker Compose
