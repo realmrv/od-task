@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "08f4883a-3b5e-41a5-b5e4-059f7b17729c",
+		"name": "od-task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23340775"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhlLmNvbSIsInN1YiI6IjMxNjUyNzgxLTNhZDQtNGEyNi1hZTlmLTVlODhiYTc4NmM4MiIsImlhdCI6MTY2MzEzNzQxOSwiZXhwIjoxNjYzMTM5MjE5fQ.lfHYvR0LYitr3Hn1n4di18qKcMFOVJpzh-HwcpaKpFk"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhlLmNvbSIsInN1YiI6IjMxNjUyNzgxLTNhZDQtNGEyNi1hZTlmLTVlODhiYTc4NmM4MiIsImlhdCI6MTY2MzEzNzQxOSwiZXhwIjoxNjYzMTM5MjE5fQ.lfHYvR0LYitr3Hn1n4di18qKcMFOVJpzh-HwcpaKpFk"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickname\": \"example\",\r\n\t\"email\": \"example@exe.com\",\r\n    \"password\": \"1Example\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhlLmNvbSIsInN1YiI6IjMxNjUyNzgxLTNhZDQtNGEyNi1hZTlmLTVlODhiYTc4NmM4MiIsImlhdCI6MTY2MzEzNzQxOSwiZXhwIjoxNjYzMTM5MjE5fQ.lfHYvR0LYitr3Hn1n4di18qKcMFOVJpzh-HwcpaKpFk"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/user",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ownsTags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/user/tag/my",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"tag",
+								"my"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "associateTags",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tags\": [\r\n        1,\r\n        2\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/tag",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dissociateTag",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/user/tag/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"tag",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tag?sortByOrder&sortByName&offset=0&length=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tag"
+							],
+							"query": [
+								{
+									"key": "sortByOrder",
+									"value": null
+								},
+								{
+									"key": "sortByName",
+									"value": null
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "length",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tag/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tag",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Волжанин\",\r\n    \"sortOrder\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/tag",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Волжанин\",\r\n    \"sortOrder\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/tag/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tag",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tag/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tag",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "root",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"example@exe.com\",\r\n  \"password\": \"1Example\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signin",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"example@exe.com\",\r\n  \"password\": \"1Example\",\r\n  \"nickname\": \"example\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/signin",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "signin(example)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"example@exe.com\",\r\n  \"password\": \"1Example\",\r\n  \"nickname\": \"example\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/signin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "signin(example1)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"example1@exe.com\",\r\n  \"password\": \"1Example1\",\r\n  \"nickname\": \"nickname1\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/signin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "signin(example2)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"example2@exe.com\",\r\n  \"password\": \"1Example2\",\r\n  \"nickname\": \"nickname2\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/signin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "refresh-token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhlLmNvbSIsInN1YiI6IjhkYTUwYjZkLThjYzYtNGIxNy1iMzQ5LWY1NmQ0ZWVlNTYyZCIsImlhdCI6MTY2NDQ1OTc0OSwiZXhwIjoxNjY1MDY0NTQ5fQ.jW_uXzIszmU5qw4jkPnDir2j3K5v-ZxrbtLjXSM5SBo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/refresh-token",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/logout",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_access}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.collectionVariables.get(\"jwt_access\") && ('authorization' in this.request.headers) || (Date.now() - pm.collectionVariables.get(\"jwt_recived_time\") > 1600 * 1000)) {",
+					"    pm.sendRequest({",
+					"        url: pm.collectionVariables.get(\"baseURL\") + \"/login\",",
+					"        method: 'POST',",
+					"        header: {",
+					"            'content-type': 'application/json'",
+					"        },",
+					"        body: {",
+					"            mode: 'raw',",
+					"            raw: JSON.stringify({",
+					"                \"email\": pm.collectionVariables.get(\"jwt_email\"),",
+					"                \"password\": pm.collectionVariables.get(\"jwt_password\")",
+					"            })",
+					"",
+					"        }",
+					"    }, function (err, res) {",
+					"        if (err) {",
+					"            console.log(err);",
+					"        } else {",
+					"            pm.collectionVariables.set(\"jwt_access\", res.json().token);",
+					"            pm.collectionVariables.set(\"jwt_recived_time\", Date.now());",
+					"        }",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000",
+			"type": "any"
+		},
+		{
+			"key": "jwt_email",
+			"value": "example@exe.com",
+			"type": "string"
+		},
+		{
+			"key": "jwt_password",
+			"value": "1Example",
+			"type": "string"
+		},
+		{
+			"key": "jwt_access",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jwt_recived_time",
+			"value": "0",
+			"type": "string"
+		}
+	]
+}
