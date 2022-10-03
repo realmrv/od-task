@@ -1,5 +1,4 @@
 {
   "upgrade": true,
-  "filter": "express",
   "reject": ["cache-manager"]
 }
